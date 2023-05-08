@@ -1,0 +1,20 @@
+{
+    "Read": {
+        "file": "S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA"
+    },
+    "Apply-Orbit-File": {
+        "suffix": "Orb",
+        "continueOnFail": "true"
+    },
+    "Calibration": {
+        "suffix": "Cal",
+        "outputBetaBand": "true",
+        "outputSigmaBand": "false",
+        "selectedPolarisations": "VV,VH",
+        "auxFile": "Product Auxiliary File"
+    },
+    "Write": {
+        "deleteOutputOnFailure": "false",
+        "file": "output_file"
+    }
+}

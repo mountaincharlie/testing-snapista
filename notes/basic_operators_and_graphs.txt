@@ -1,0 +1,45 @@
+    # --- READ OPERATOR
+    read = Operator('Read')
+    # read.describe()
+    read.file = input_scene  # test if SNAP can just take zip
+
+    # --- WRITE OPERATOR
+    write = Operator('Write')
+    # write.describe()
+    write.file = f'./output/{output_name}.dim'  # FILE TYPE DEPENDS ON USER'S CHOICE (dim => BEAM-DIMAP)
+    write.deleteOutputOnFailure = 'false'  # while testing
+
+    # --- SUBSET OPERATOR ??
+
+    # --- APPLY ORBIT FILE OPERATOR
+    apply_orbit_file = Operator('Apply-Orbit-File')
+    # apply_orbit_file.describe()
+    apply_orbit_file.continueOnFail = 'true'
+
+    # --- CALIBRATION OPERATOR [have default at start of name?]
+    calibration = Operator('Calibration')
+    # calibration.describe()
+    calibration.outputBetaBand = 'true'
+    calibration.outputSigmaBand = 'false'
+    calibration.createBetaBand = 'false'
+    calibration.selectedPolarisations = 'VV,VH'  # need space?
+    calibration.auxFile = 'Product Auxiliary File'
+
+
+    # --- GRAPH SETUP FUNCTION (name specific graphs on their basic application)
+    g = Graph()
+
+    g.add_node(operator=read, 
+           node_id='Read')
+
+    g.add_node(operator=apply_orbit_file, 
+           node_id='Apply-Orbit-File', 
+           source='Read')
+
+    g.add_node(operator=calibration, 
+           node_id='Calibration', 
+           source='Apply-Orbit-File')
+
+    g.add_node(operator=write, 
+           node_id='Write', 
+           source='Calibration')

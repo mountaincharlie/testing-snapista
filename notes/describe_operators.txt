@@ -1,0 +1,204 @@
+### Operator name: Read
+
+Description: Reads a data product from a given file location.
+
+Parameters:
+
+        file: The file from which the data product is read.
+                Default Value: None
+                Possible values: []
+
+        formatName: An (optional) format name.
+                Default Value: None
+                Possible values: ['SENTINEL-2-MSI-MultiRes-UTM46S', 'SENTINEL-2-MSI-MultiRes-UTM08S', 'SeaDAS-L3', 'SENTINEL-2-MSI-MultiRes-UTM29S', 'SENTINEL-2-MSI-MultiRes-UTM42S', 'DEIMOSDimap', 'SENTINEL-2-MSI-MultiRes-UTM47S', 'SENTINEL-2-MSI-MultiRes-UTM51S', 'TerraSarX', 'SENTINEL-2-MSI-MultiRes-UTM08N', 'PleiadesDimap', 'SENTINEL-2-MSI-MultiRes-UTM45S', 'SENTINEL-2-MSI-MultiRes-UTM22S', 'JPEG2000', 'SENTINEL-2-MSI-MultiRes-UTM40S', 'RADARSAT-1', 'SENTINEL-2-MSI-MultiRes-UTM14N', 'SENTINEL-2-MSI-MultiRes-UTM26N', 'SENTINEL-2-MSI-MultiRes-UTM59S', 'SPOTDimap', 'Sen3', 'ALOS-2 CEOS', 'SENTINEL-2-MSI-MultiRes-UTM55N', 'SENTINEL-2-MSI-MultiRes-UTM50S', 'SENTINEL-2-MSI-MultiRes-UTM16S', 'SENTINEL-2-MSI-MultiRes-UTM37S', 'SeaDAS-ANC', 'GETASSE30', 'SENTINEL-2-MSI-MultiRes-UTM46N', 'SENTINEL-2-MSI-MultiRes-UTM52S', 'SENTINEL-2-MSI-MultiRes-UTM41S', 'GDAL-RMF-READER', 'SENTINEL-2-MSI-MultiRes-UTM32S', 'SENTINEL-2-MSI-MultiRes-UTM58N', 'SENTINEL-2-MSI-MultiRes-UTM56N', 'ENVI', 'GTOPO30', 'MODIS-L1B', 'SENTINEL-2-MSI-MultiRes-UTM23N', 'SENTINEL-2-MSI-MultiRes-UTM20S', 'SENTINEL-2-MSI-MultiRes-UTM17S', 'GDAL-ERS-READER', 'ACE2', 'SENTINEL-2-MSI-MultiRes-UTM02S', 'VIIRS-L1B', 'SENTINEL-2-MSI-MultiRes-UTM52N', 'AlosAV2Dimap', 'PRISM', 'Complex Binary', 'Gaofen3', 'Matlab', 'SENTINEL-2-MSI-MultiRes-UTM57N', 'SENTINEL-2-MSI-MultiRes-UTM21N', 'SENTINEL-2-MSI-MultiRes-UTM14S', 'SENTINEL-2-MSI-20M', 'Capella', 'ENVISAT', 'L3_ENV_MER', 'SENTINEL-2-MSI-MultiRes-UTM05S', 'NetCDF-CF', 'SENTINEL-2-MSI-MultiRes-UTM60N', 'SENTINEL-2-MSI-MultiRes-UTM51N', 'SENTINEL-2-MSI-10M', 'SENTINEL-2-MSI-MultiRes-UTM22N', 'MODIS', 'Kompsat2GeoTIFF', 'SENTINEL-2-MSI-MultiRes-UTM13N', 'SENTINEL-2-MSI-MultiRes-UTM09N', 'CosmoSkymed', 'PolSARPro', 'SENTINEL-2-MSI-MultiRes-UTM03N', 'Spacety', 'SENTINEL-2-MSI-MultiRes-UTM54N', 'NetCDF-BEAM', 'SENTINEL-1', 'JERS CEOS', 'SENTINEL-2-MSI-MultiRes-UTM40N', 'Gamma', 'PAZ', 'IkonosGeoTIFF', 'SENTINEL-2-MSI-MultiRes-UTM38S', 'IceyeProduct', 'HICO-L1B', 'SENTINEL-2-MSI-MultiRes-UTM48N', 'SENTINEL-2-MSI-MultiRes-UTM12S', 'SENTINEL-2-MSI-MultiRes-UTM17N', 'SENTINEL-2-MSI-MultiRes-UTM43S', 'Binned_data_product', 'PACE-L1B', 'HICO', 'GDAL-KRO-READER', 'SENTINEL-2-MSI-MultiRes-UTM05N', 'SENTINEL-2-MSI-MultiRes-UTM04N', 'RapidEyeNITF', 'SENTINEL-2-MSI-MultiRes-UTM15S', 'SENTINEL-2-MSI-MultiRes-UTM03S', 'SeaDAS-L2', 'ALOS PALSAR CEOS', 'SENTINEL-2-MSI-MultiRes-UTM54S', 'GDAL-GTiff-READER', 'SENTINEL-2-MSI-MultiRes-UTM31N', 'GDAL-HFA-READER', 'SPOT4Take5', 'SENTINEL-2-MSI-MultiRes-UTM39S', 'SENTINEL-2-MSI-MultiRes-UTM25S', 'SENTINEL-2-MSI-MultiRes-UTM29N', 'SENTINEL-2-MSI-MultiRes-UTM30S', 'SENTINEL-2-MSI-MultiRes-UTM23S', 'Landsat8GeoTIFF30m', 'GOCI-L1B', 'SPOTView', 'ALOS-2 GeoTIFF', 'SENTINEL-2-MSI-60M', 'SENTINEL-2-MSI-MultiRes-UTM21S', 'CSV', 'PGX', 'SENTINEL-2-MSI-MultiRes-UTM01S', 'SENTINEL-2-MSI-MultiRes-UTM34N', 'SENTINEL-2-MSI-MultiRes-UTM48S', 'SeaSat', 'SENTINEL-2-MSI-MultiRes-UTM24N', 'ATS_L1_S3', 'SENTINEL-2-MSI-MultiRes-UTM10N', 'GDAL-GS7BG-READER', 'WorldViewGeoTIFF', 'SENTINEL-2-MSI-MultiRes-UTM20N', 'ERS CEOS', 'SENTINEL-2-MSI-MultiRes-UTM33N', 'GDAL-GTX-READER', 'Aquarius', 'SENTINEL-2-MSI-MultiRes-UTM58S', 'SENTINEL-2-MSI-MultiRes-UTM28S', 'Kompsat5', 'SENTINEL-2-MSI-MultiRes-UTM32N', 'SPOT-VGT', 'SENTINEL-2-MSI-MultiRes-UTM44S', 'SENTINEL-2-MSI-MultiRes-UTM37N', 'FAST L5', 'SENTINEL-2-MSI-MultiRes-UTM38N', 'SENTINEL-2-MSI-MultiRes-UTM07S', 'GeoTIFF-BigTIFF', 'NOAA_POD_AVHRR_HRPT', 'OCM2-L1B', 'SENTINEL-2-MSI-MultiRes-UTM19S', 'SENTINEL-2-MSI-MultiRes-UTM06N', 'NOAA_AVHRR_3_L1B', 'SENTINEL-2-MSI-MultiRes-UTM09S', 'SENTINEL-2-MSI-MultiRes-UTM28N', 'LandsatL2GeoTIFF', 'SENTINEL-2-MSI-MultiRes-UTM01N', 'GDAL-NITF-READER', 'MER_L1_S3', 'SENTINEL-2-MSI-MultiRes-UTM11S', 'SENTINEL-2-MSI-MultiRes-UTM19N', 'SENTINEL-2-MSI-MultiRes-UTM49S', 'SAOCOM', 'NetCDF', 'SENTINEL-2-MSI-MultiRes-UTM26S', 'RISAT-1', 'SENTINEL-2-MSI-MultiRes-UTM57S', 'GDAL-PCIDSK-READER', 'SENTINEL-2-MSI-MultiRes-UTM53S', 'WorldView2GeoTIFF', 'SENTINEL-2-MSI-MultiRes-UTM04S', 'LandsatC2L2GeoTIFF', 'SENTINEL-2-MSI-MultiRes-UTM49N', 'SENTINEL-2-MSI-MultiRes-UTM11N', 'SENTINEL-2-MSI-MultiRes-UTM10S', 'Landsat8GeoTIFF15m', 'RAT', 'SPOT6Dimap', 'GDAL-MFF-READER', 'GDAL-RST-READER', 'GDAL-ILWIS-READER', 'SENTINEL-2-MSI-L1B-MultiRes', 'Sen3_SLSTRL1B_500m', 'AlosPRIDimap', 'GDAL-SGI-READER', 'HDF-EOS', 'SENTINEL-2-MSI-MultiRes-UTM18N', 'METOP_AVHRR_3_L1B', 'Sen3_SLSTRL1B_1km', 'ARC_INFO_BIN_GRID', 'RapidEyeGeoTIFF', 'SENTINEL-2-MSI-MultiRes-UTM39N', 'ATSR', 'SENTINEL-2-MSI-MultiRes-UTM43N', 'SENTINEL-2-MSI-MultiRes-UTM45N', 'GeoTIFF', 'SENTINEL-2-MSI-MultiRes-UTM56S', 'SENTINEL-2-MSI-MultiRes-UTM02N', 'SENTINEL-2-MSI-MultiRes-UTM07N', 'GDAL-SAGA-READER', 'SENTINEL-2-MSI-MultiRes-UTM59N', 'SENTINEL-2-MSI-MultiRes-UTM53N', 'SENTINEL-2-MSI-MultiRes-UTM55S', 'SENTINEL-2-MSI-MultiRes-UTM44N', 'SENTINEL-2-MSI-MultiRes-UTM15N', 'MER_L2_S3', 'SENTINEL-2-MSI-MultiRes-UTM50N', 'SENTINEL-2-MSI-MultiRes-UTM06S', 'SENTINEL-2-MSI-MultiRes-UTM42N', 'SENTINEL-2-MSI-MultiRes-UTM41N', 'SENTINEL-2-MSI-MultiRes-UTM27S', 'SPOT5Take5', 'SeaDAS-L1', 'DSCOVER-L2', 'SENTINEL-2-MSI-MultiRes-UTM27N', 'SENTINEL-2-MSI-MultiRes-UTM30N', 'SENTINEL-2-MSI-MultiRes-UTM60S', 'AVNIR-2', 'SENTINEL-2-MSI-MultiRes-UTM16N', 'SENTINEL-2-MSI-MultiRes-UTM35S', 'ACE', 'RADARSAT-2', 'HGT', 'GDAL-GSBG-READER', 'SNAPHU', 'SENTINEL-2-MSI-MultiRes-UTM18S', 'SENTINEL-2-MSI-MultiRes-UTM47N', 'MUSCATE', 'IMAGE', 'SENTINEL-2-MSI-MultiRes-UTM34S', 'SENTINEL-2-MSI-MultiRes-UTM36S', 'Basic CEOS', 'GDAL-BT-READER', 'SENTINEL-2-MSI-MultiRes-UTM13S', 'RCM', 'SENTINEL-2-MSI-MultiRes-UTM31S', 'BEAM-DIMAP', 'SENTINEL-2-MSI-MultiRes-UTM35N', 'Generic Binary', 'SeaDAS-Browse', 'SENTINEL-2-MSI-MultiRes-UTM12N', 'SENTINEL-2-MSI-MultiRes-UTM25N', 'SENTINEL-2-MSI-MultiRes-UTM33S', 'SENTINEL-2-MSI-MultiRes-UTM24S', 'SENTINEL-2-MSI-MultiRes-UTM36N', 'LandsatGeoTIFF', 'VIIRS']
+
+        bandNames: The list of source bands.
+                Default Value: None
+                Possible values: []
+
+        maskNames: The list of source masks.
+                Default Value: None
+                Possible values: []
+
+        pixelRegion: The subset region in pixel coordinates.
+Use the following format: <x>,<y>,<width>,<height>
+If not given, the entire scene is used. The 'geoRegion' parameter has precedence over this parameter.
+                Default Value: None
+                Possible values: []
+
+        geometryRegion: The subset region in geographical coordinates using WKT-format,
+e.g. POLYGON((<lon1> <lat1>, <lon2> <lat2>, ..., <lon1> <lat1>))
+(make sure to quote the option due to spaces in <geometry>).
+If not given, the entire scene is used.
+                Default Value: None
+                Possible values: []
+
+        copyMetadata: Whether to copy the metadata of the source product.
+                Default Value: true
+                Possible values: []
+
+
+
+### Operator name: Write
+
+Description: Writes a data product to a file.
+
+Parameters:
+
+        file: The output file to which the data product is written.
+                Default Value: None
+                Possible values: []
+
+        formatName: The name of the output file format.
+                Default Value: BEAM-DIMAP
+                Possible values: ['GDAL-MFF-WRITER', 'CSV', 'ENVI', 'Gamma', 'GDAL-HFA-WRITER', 'GDAL-KRO-WRITER', 'GDAL-SAGA-WRITER', 'GDAL-RMF-WRITER', 'NetCDF4-CF', 'GDAL-PCIDSK-WRITER', 'GDAL-NITF-WRITER', 'JP2', 'Generic Binary BSQ', 'PolSARPro', 'GeoTIFF-BigTIFF', 'JPEG2000', 'GDAL-GS7BG-WRITER', 'GDAL-GTX-WRITER', 'GDAL-BMP-WRITER', 'BEAM-DIMAP', 'Gamma for PyRate', 'GDAL-PNM-WRITER', 'HDF5', 'GDAL-BT-WRITER', 'GDAL-ILWIS-WRITER', 'GDAL-SGI-WRITER', 'GDAL-GTiff-WRITER', 'NetCDF4-BEAM', 'Snaphu', 'GDAL-GSBG-WRITER', 'GDAL-RST-WRITER', 'GeoTIFF+XML', 'GeoTIFF']
+
+        deleteOutputOnFailure: If true, all output files are deleted after a failed write operation.
+                Default Value: true
+                Possible values: []
+
+        writeEntireTileRows: If true, the write operation waits until an entire tile row is computed.
+                Default Value: false
+                Possible values: []
+
+        clearCacheAfterRowWrite: If true, the internal tile cache is cleared after a tile row has been written. Ignored if writeEntireTileRows=false.
+                Default Value: false
+                Possible values: []
+
+
+### Operator name: Apply-Orbit-File
+
+Description: Apply orbit file
+
+Parameters:
+
+        orbitType: None
+                Default Value: Sentinel Precise (Auto Download)
+                Possible values: ['Sentinel Precise (Auto Download)', 'Sentinel Restituted (Auto Download)', 'DORIS Preliminary POR (ENVISAT)', 'DORIS Precise VOR (ENVISAT) (Auto Download)', 'DELFT Precise (ENVISAT, ERS1&2) (Auto Download)', 'PRARE Precise (ERS1&2) (Auto Download)', 'Kompsat5 Precise']
+
+        polyDegree: None
+                Default Value: 3
+                Possible values: []
+
+        continueOnFail: None
+                Default Value: false
+                Possible values: []
+
+
+### Operator name: Calibration
+
+Description: Calibration of products
+
+Parameters:
+
+        sourceBandNames: The list of source bands.
+                Default Value: None
+                Possible values: []
+
+        auxFile: The auxiliary file
+                Default Value: Latest Auxiliary File
+                Possible values: ['Latest Auxiliary File', 'Product Auxiliary File', 'External Auxiliary File']
+
+        externalAuxFile: The antenna elevation pattern gain auxiliary data file.
+                Default Value: None
+                Possible values: []
+
+        outputImageInComplex: Output image in complex
+                Default Value: false
+                Possible values: []
+
+        outputImageScaleInDb: Output image scale
+                Default Value: false
+                Possible values: []
+
+        createGammaBand: Create gamma0 virtual band
+                Default Value: false
+                Possible values: []
+
+        createBetaBand: Create beta0 virtual band
+                Default Value: false
+                Possible values: []
+
+        selectedPolarisations: The list of polarisations [as a string]
+                Default Value: None
+                Possible values: ['VV', 'VH', 'VV,VH' etc]
+
+        outputSigmaBand: Output sigma0 band
+                Default Value: true
+                Possible values: []
+
+        outputGammaBand: Output gamma0 band
+                Default Value: false
+                Possible values: []
+
+        outputBetaBand: Output beta0 band
+                Default Value: false
+                Possible values: []
+
+
+
+### Operator name: Remove-GRD-Border-Noise
+
+Description: Mask no-value pixels for GRD product
+
+Parameters:
+
+        selectedPolarisations: The list of polarisations
+                Default Value: None
+                Possible values: []
+
+        borderLimit: The border margin limit
+                Default Value: 500
+                Possible values: []
+
+        trimThreshold: The trim threshold
+                Default Value: 0.5
+                Possible values: []
+
+
+
+### Operator name: ThermalNoiseRemoval
+
+Description: Removes thermal noise from products
+
+Parameters:
+
+        selectedPolarisations: The list of polarisations
+                Default Value: None
+                Possible values: []
+
+        removeThermalNoise: Remove thermal noise
+                Default Value: true
+                Possible values: []
+
+        reIntroduceThermalNoise: Re-introduce thermal noise
+                Default Value: false
+                Possible values: []
+
+
+
+Operator name: Multilook
+
+Description: Averages the power across a number of lines in both the azimuth and range directions
+
+Parameters:
+
+        sourceBandNames: The list of source bands.
+                Default Value: None
+                Possible values: []
+
+        nRgLooks: The user defined number of range looks
+                Default Value: 1
+                Possible values: []
+
+        nAzLooks: The user defined number of azimuth looks
+                Default Value: 1
+                Possible values: []
+
+        outputIntensity: For complex product output intensity or i and q
+                Default Value: false
+                Possible values: []
+
+        grSquarePixel: Use ground square pixel
+                Default Value: true
+                Possible values: []

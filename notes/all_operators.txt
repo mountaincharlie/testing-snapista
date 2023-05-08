@@ -1,0 +1,245 @@
+EMClusterAnalysis - Performs an expectation-maximization (EM) cluster analysis.
+MphChlOlci - Computes maximum peak height of chlorophyll for OLCI. Implements OLCI-specific parts.
+SAR-Mosaic - Mosaics two or more products based on their geo-codings.
+IEM-Hybrid-Inversion - Performs IEM inversion using Hybrid approach
+TOPSAR-Split - Creates a new product with only the selected subswath
+Meris.SmileCorrection - None
+OWTClassification - Performs an optical water type classification based on atmospherically corrected reflectances.
+ProductSet-Reader - Adds a list of sources
+WriteRGB - Creates an RGB image from three source bands.
+Data-Analysis - Computes statistics
+CP-Simulation - Simulation of Compact Pol data from Quad Pol data
+PduStitching - Stitches multiple SLSTR L1B product dissemination units (PDUs) of the same orbit to a single product.
+Terrain-Correction - RD method for orthorectification
+GLCM - Extract Texture Features
+MphChlBasis - Computes maximum peak height of chlorophyll. Basis class, contains sensor-independent parts.
+Random-Forest-Classifier - Random Forest based classifier
+FillAerosol - None
+MultiMasterStackGenerator - Generates a set of master-slave pairs from a coregistered stack for use in SBAS processing
+RemoveAntennaPattern - Remove Antenna Pattern
+WdviOp - Weighted Difference Vegetation Index retrieves the Isovegetation lines parallel to soil line. Soil line has an arbitrary slope and passes through origin
+Unmix - Performs a linear spectral unmixing.
+NdviOp - The retrieves the Normalized Difference Vegetation Index (NDVI).
+Meris.N1Patcher - Copies an existing N1 file and replaces the data for the radiance bands
+Generalized-Radar-Vegetation-Index - Generalized Radar Vegetation Indices generation
+CloudProb - Applies a clear sky conservative cloud detection algorithm.
+Oil-Spill-Detection - Detect oil spill.
+Calibration - Calibration of products
+CP-Stokes-Parameters - Generates compact polarimetric Stokes child parameters
+GenericRegionMergingOp - The 'Generic Region Merging' operator computes the distinct regions from a product
+GndviOp - Green Normalized Difference Vegetation Index
+S2tbx-Reproject - Reprojection of a source product to a target Coordinate Reference System.
+FlhMci - Computes fluorescence line height (FLH) or maximum chlorophyll index (MCI).
+Meris.LandClassification - MERIS L2 land/water reclassification.
+Image-Filter - Common Image Processing Filters
+McariOp - Modified Chlorophyll Absorption Ratio Index, developed to be responsive to chlorophyll variation
+ForestCoverChangeOp - Creates forest change masks out of two source products
+PhaseToElevation - DEM Generation
+Land-Sea-Mask - Creates a bitmask defining land vs ocean.
+AdaptiveThresholding - Detect ships using Constant False Alarm Rate detector.
+PviOp - Perpendicular Vegetation Index retrieves the Isovegetation lines parallel to soil line. Soil line has an arbitrary slope and passes through origin
+Meris.CloudTopPressureOp - Computes cloud top pressure with FUB NN.
+Meris.BlueBand - None
+Principle-Components - Principle Component Analysis
+NdwiOp - The Normalized Difference Water Index was developed for the extraction of water features
+PixEx - Extracts pixels from given locations and source products.
+PassThrough - Sets target product to source product.
+CrossResampling - Estimate Resampling Polynomial using SAR Image Geometry, and Resample Input Images
+Import-Vector - Imports a shape file into a product
+c2rcc.viirs - Performs atmospheric correction and IOP retrieval on Viirs L1C data products.
+MphChlMeris - Computes maximum peak height of chlorophyll for MERIS. Implements MERIS-specific parts.
+SnaphuExport - Export data and prepare conf file for SNAPHU processing
+RiOp - The Redness Index was developed to identify soil colour variations.
+Meris.Sdr - None
+DeburstWSS - Debursts an ASAR WSS product
+SnaphuImport - Ingest SNAPHU results into InSAR product.
+TopoPhaseRemoval - Compute and subtract TOPO phase
+SRGR - Converts Slant Range to Ground Range
+PpeFiltering - Performs Prompt Particle Event (PPE) filtering on OLCI L1B
+RayleighCorrection - Performs radiometric corrections on OLCI, MERIS L1B and S2 MSI L1C data products.
+ReflectanceToRadianceOp - The 'Reflectance To Radiance Processor' operator retrieves the radiance from reflectance using Sentinel-2 products
+KNN-Classifier - K-Nearest Neighbour classifier
+Orientation-Angle-Correction - Perform polarization orientation angle correction for given coherency matrix
+Speckle-Divergence - Detect urban area.
+Apply-Orbit-File - Apply orbit file
+IEM-Multi-Pol-Inversion - Performs IEM inversion using Multi-polarization approach
+Supervised-Wishart-Classification - Perform supervised Wishart classification
+TOPSAR-DerampDemod - Bursts co-registration using orbit and DEM
+RviOp - Ratio Vegetation Index retrieves the Isovegetation lines converge at origin
+Oil-Spill-Clustering - Remove small clusters from detected area.
+Interferogram - Compute interferograms from stack of coregistered S-1 images
+Merge - Allows merging of several source products by using specified 'master' as reference product.
+Aatsr.SST - Computes sea surface temperature (SST) from (A)ATSR products.
+Collocate - Collocates two products based on their geo-codings.
+Meris.CloudShadow - None
+Meris.Brr - Performs the Rayleigh correction on a MERIS L1b product.
+SubGraph - Encapsulates a graph within a graph.
+MndwiOp - Modified Normalized Difference Water Index, allowing for the measurement of surface water extent
+BiophysicalOp - The 'Biophysical Processor' operator retrieves LAI from atmospherically corrected Sentinel-2 products
+FUB.Water - FUB/WeW WATER Processor to retrieve case II water properties and atmospheric properties
+Ndwi2Op - The Normalized Difference Water Index, allowing for the measurement of surface water extent
+Offset-Tracking - Create velocity vectors from offset tracking
+Ndi45Op - Normalized Difference Index using bands 4 and 5
+AzimuthFilter - Azimuth Filter
+GaborFilter - Extract Texture Features
+RemoteExecutionOp - The Remote Execution Processor executes on the remote machines a slave graph and then on the host machine it executes a master graph using the products created by the remote machines.
+AddLandCover - Creates a land cover band
+BandMerge - Allows copying raster data from any number of source products to a specified 'master' product.
+Polarimetric-Classification - Perform Polarimetric classification of a given product
+ALOS-Deskewing - Deskewing ALOS product
+SM-Dielectric-Modeling - Performs SM inversion using dielectric model
+IreciOp - Inverted red-edge chlorophyll index
+TileWriter - Writes a data product to a tiles.
+BandsExtractorOp - Creates a new product out of the source product containing only the indexes bands given
+SimulateAmplitude - Simulate amplitude based on DEM
+Subset - Create a spatial and/or spectral subset of a data product.
+BandSelect - Creates a new product with only selected bands
+ArviOp - Atmospherically Resistant Vegetation Index belongs to a family of indices with built-in atmospheric corrections.
+ReplaceMetadata - Replace the metadata of the first product with that of the second
+c2rcc.landsat8 - Performs atmospheric correction and IOP retrieval with uncertainties on Landsat-8 L1 data products.
+Stack-Averaging - Averaging multi-temporal images
+TestPattern - For testing only
+SaviOp - This retrieves the Soil-Adjusted Vegetation Index (SAVI).
+BiophysicalLandsat8Op - The 'Biophysical Processor' operator retrieves LAI from atmospherically corrected Landsat8 products
+Meris.RayleighCorrection - MERIS L2 rayleigh correction.
+Radar-Vegetation-Index - Dual-pol Radar Vegetation Indices generation
+Demodulate - Demodulation and deramping of SLC data
+FillBand - None
+Maximum-Likelihood-Classifier - Maximum Likelihood classifier
+LandWaterMask - Operator creating a target product with a single band containing a land/water-mask.
+Double-Difference-Interferogram - Compute double difference interferogram
+Meris.Mod08Aerosol - None
+Faraday-Rotation-Correction - Perform Faraday-rotation correction for quad-pol product
+c2rcc.landsat7 - Performs atmospheric correction and IOP retrieval with uncertainties on Landsat-7 L1 data products.
+c2rcc - Performs atmospheric correction and IOP retrieval on OLCI, MSI, MERIS, MODIS or SeaWiFS L1 product.
+GoldsteinPhaseFiltering - Phase Filtering
+c2rcc.olci - Performs atmospheric correction and IOP retrieval with uncertainties on SENTINEL-3 OLCI L1B data products.
+PhaseToHeight - Phase to Height conversion
+Wind-Field-Estimation - Estimate wind speed and direction
+StoredGraph - Encapsulates an stored graph into an operator.
+ToolAdapterOp - Tool Adapter Operator
+ThermalNoiseRemoval - Removes thermal noise from products
+AddElevation - Creates a DEM band
+GaseousAbsorption - Correct the influence of atmospheric gas absorption for those OLCI channels.
+PyOp - Uses Python code to process data products
+RangeFilter - Range Filter
+Biophysical10mOp - The 'Biophysical Processor' operator retrieves LAI from atmospherically corrected Sentinel-2 products
+IntegerInterferogram - Create integer interferogram
+KMeansClusterAnalysis - Performs a K-Means cluster analysis.
+MphChl - This operator computes maximum peak height of chlorophyll (MPH/CHL).
+Mosaic - Creates a mosaic out of a set of source products.
+c2rcc.meris4 - Performs atmospheric correction and IOP retrieval with uncertainties on MERIS L1b data products from the 4th reprocessing.
+Back-Geocoding - Bursts co-registration using orbit and DEM
+Remove-GRD-Border-Noise - Mask no-value pixels for GRD product
+L3ToL1 - None
+Flip - flips a product horizontal/vertical
+Arc.SST - Computes sea surface temperature (SST) from (A)ATSR and SLSTR products.
+TOPSAR-Merge - Merge subswaths of a Sentinel-1 TOPSAR product
+MtciOp - The Meris Terrestrial Chlorophyll Index,  aims at estimating the Red Edge Position (REP).
+This is the maximum slant point in the red and near-infrared region of the vegetal spectral reflectance.
+It is useful for observing the chlorophyll contents, vegetation senescence, and stress for water and nutritional deficiencies, but it is less suitable for land classification
+Fill-DEM-Hole - Fill holes in given DEM product file.
+CreateStack - Collocates two or more products based on their geo-codings.
+Meris.GaseousCorrection - MERIS L2 gaseous absorbtion correction.
+SmacOp - Applies the Simplified Method for Atmospheric Corrections of Envisat MERIS/(A)ATSR measurements.
+GemiOp - This retrieves the Global Environmental Monitoring Index (GEMI).
+RRToFRS - None
+Find-Image-Pair - DB query to find matching image pair
+c2rcc.modis - Performs atmospheric correction and IOP retrieval on MODIS L1C_LAC data products.
+Object-Discrimination - Remove false alarms from the detected objects.
+SpectralAngleMapperOp - Classifies a product using the spectral angle mapper algorithm
+Binning - Performs spatial and temporal aggregation of pixel values into cells ('bins') of a planetary grid
+Convert-Datatype - Convert product data type
+Compactpol-Radar-Vegetation-Index - Compact-pol Radar Vegetation Indices generation
+Reproject - Reprojection of a source product to a target Coordinate Reference System.
+Multilook - Averages the power across a number of lines in both the azimuth and range directions
+TileCache - Experimental Operator which provides a dedicated cache for its source product.
+A guide on how this operator is used is provided at https://senbox.atlassian.net/wiki/x/VQCTLw.
+Coherence - Estimate coherence from stack of coregistered images
+Undersample - Undersample the datset
+c2rcc.seawifs - Performs atmospheric correction and IOP retrieval on SeaWifs L1C data products.
+TOPSAR-Deburst - Debursts a Sentinel-1 TOPSAR product
+Ellipsoid-Correction-GG - GG method for orthorectification
+Land-Cover-Mask - Perform decision tree classification
+Flood-Detection - Detect flooded area.
+Meris.CorrectRadiometry - Performs radiometric corrections on MERIS L1b data products.
+Multi-size Mosaic - Creates a multi-size mosaic out of a set of source products.
+PCA - Performs a Principal Component Analysis.
+Polarimetric-Speckle-Filter - Polarimetric Speckle Reduction
+c2rcc.meris - Performs atmospheric correction and IOP retrieval with uncertainties on MERIS L1b data products.
+SmileCorrection.Olci - Performs radiometric corrections on OLCI L1b data products.
+FuClassification - Colour classification based on the discrete Forel-Ule scale
+Multitemporal-Compositing - Compute composite image from multi-temporal RTCs
+Azimuth-Shift-Estimation-ESD - Estimate azimuth offset for the whole image
+Enhanced-Spectral-Diversity - Estimate constant range and azimuth offsets for a stack of images
+GRD-Post - Applies GRD post-processing
+Cross-Correlation - Automatic Selection of Ground Control Points
+S2Resampling - Specific S2 resample algorithm
+DecisionTree - Perform decision tree classification
+Read - Reads a data product from a given file location.
+Meris.GapLessSdr - None
+CP-Decomposition - Perform Compact Polarimetric decomposition of a given product
+Stack-Split - Writes all bands to files.
+EAP-Phase-Correction - EAP Phase Correction
+Ellipsoid-Correction-RD - Ellipsoid correction with RD method and average scene height
+CoregistrationOp - Coregisters two rasters, not considering their location
+PhaseToDisplacement - Phase To Displacement Conversion along LOS
+SetNoDataValue - Set NoDataValueUsed flag and NoDataValue for all bands
+TsaviOp - This retrieves the Transformed Soil Adjusted Vegetation Index (TSAVI).
+NdpiOp - The normalized differential pond index, combines the short-wave infrared band-I and the green band
+StampsExport - Export data for StaMPS processing
+Multi-Temporal-Speckle-Filter - Speckle Reduction using Multitemporal Filtering
+Remodulate - Remodulation and reramping of SLC data
+PssraOp - Pigment Specific Simple Ratio, chlorophyll index
+Oversample - Oversample the datset
+Change-Detection - Change Detection.
+Terrain-Flattening - Terrain Flattening
+TndviOp - Transformed Normalized Difference Vegetation Index retrieves the Isovegetation lines parallel to soil line
+ReipOp - The red edge inflection point index
+DEM-Assisted-Coregistration - Orbit and DEM based co-registration
+BandsDifferenceOp - None
+Update-Geo-Reference - Update Geo Reference
+Three-passDInSAR - Differential Interferometry
+Warp - Create Warp Function And Get Co-registrated Images
+Terrain-Mask - Terrain Mask Generation
+Meris.CloudClassification - MERIS L2 cloud classification.
+Minimum-Distance-Classifier - Minimum Distance classifier
+TemporalPercentile - Computes percentiles over a given time period.
+MoreThenAnIntegerOp - just for testing
+S2repOp - Sentinel-2 red-edge position index
+Cross-Channel-SNR-Correction - Compute general polarimetric parameters
+Write - Writes a data product to a file.
+AATSR.Ungrid - Ungrids (A)ATSR L1B products and extracts geolocation and pixel field of view data.
+SliceAssembly - Merges Sentinel-1 slice products
+Polarimetric-Matrices - Generates covariance or coherency matrix for given product
+KDTree-KNN-Classifier - KDTree KNN classifier
+c2rcc.msi - Performs atmospheric correction and IOP retrieval with uncertainties on Sentinel-2 MSI L1C data products.
+Mci.s2 - Computes maximum chlorophyll index (MCI) for Sentinel-2 MSI.
+Msavi2Op - This retrieves the second Modified Soil Adjusted Vegetation Index (MSAVI2).
+Forest-Area-Classification - Detect forest area
+IEM-Multi-Angle-Inversion - Performs IEM inversion using Multi-angle approach
+IpviOp - Infrared Percentage Vegetation Index retrieves the Isovegetation lines converge at origin
+Meris.AerosolMerger - None
+OlciO2aHarmonisation - Performs O2A band harmonisation on OLCI L1b product. Implements update v4 of R.Preusker, June 2020.
+Bi2Op - The Brightness index represents the average of the brightness of a satellite image.
+This index is sensitive to the brightness of soils which is highly correlated with the humidity and the presence of salts in surface
+DviOp - Difference Vegetation Index retrieves the Isovegetation lines parallel to soil line
+CiOp - Colour Index  was developed to differentiate soils in the field.
+In most cases the CI gives complementary information with the BI and the NDVI.
+ Used for diachronic analyses, they help for a better understanding of the evolution of soil surfaces.
+Compute-Slope-Aspect - Compute Slope and Aspect from DEM
+NdtiOp - Normalized difference turbidity index, allowing for the measurement of water turbidity
+LinearToFromdB - Converts bands to/from dB
+Forest-Area-Detection - Detect forest area.
+Rad2Refl - Provides conversion from radiances to reflectances or backwards.
+Meris.CombinedCloud - None
+Resample - Resampling of a multi-size source product to a single-size target product.
+BiOp - The Brightness index represents the average of the brightness of a satellite image.
+Polarimetric-Parameters - Compute general polarimetric parameters
+SAR-Simulation - Rigorous SAR Simulation
+MsaviOp - This retrieves the Modified Soil Adjusted Vegetation Index (MSAVI).
+Speckle-Filter - Speckle Reduction
+Polarimetric-Decomposition - Perform Polarimetric decomposition of a given product
+SARSim-Terrain-Correction - Orthorectification with SAR simulation
+BandMaths - Create a product with one or more bands using mathematical expressions.
+StatisticsOp - Computes statistics for an arbitrary number of source products.

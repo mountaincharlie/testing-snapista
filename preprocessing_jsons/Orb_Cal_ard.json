@@ -1,0 +1,20 @@
+{
+    "Read": {
+        "file": "input_file"
+    },
+    "Apply-Orbit-File": {
+        "suffix": "Orb",
+        "continueOnFail": "true"
+    },
+    "Calibration": {
+        "suffix": "Cal",
+        "outputBetaBand": "true",
+        "outputSigmaBand": "false",
+        "selectedPolarisations": "VV,VH",
+        "auxFile": "Product Auxiliary File"
+    },
+    "Write": {
+        "deleteOutputOnFailure": "false",
+        "file": "output_file"
+    }
+}

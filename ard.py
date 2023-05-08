@@ -8,7 +8,7 @@ TO DO:
 -[DONE] try to run it 
 -[DONE] compare output to snap [compared in SNAP and have identical pixel values]
 -[DONE] make all into functions
--try to setup reading from json
+-try to setup reading from json set as an argument for the main function
 -try to read input from zip file? (will still require checking the manifest.safe exists)
 -[DONE] rerun to compare to snap
 -use try/execpts
@@ -19,7 +19,7 @@ TO DO:
 -try with user input/diff parameters (via json object?)
 -[DONE] to set the operators from json, can you loop through the operators given parameters in the json and set them like that?
 -create dockerfile - with snap and snapista, rememebr to deactivate conda base env before testing
--make into a RESTful API in Django
+-make into a RESTful API in Django [setup python environment first]
 -define a json of default values for each operator?
 -add basic validation checks (if zip provided, if parameters have valid values - else use defaults)
 -design basic react frontend for users to choose parameters (where to load/save the input/output?)
@@ -32,6 +32,7 @@ from snapista import Graph
 from pathlib import Path
 import zipfile
 import json
+import logging
 
 # from snapista import TargetBand, TargetBandDescriptors
 # Graph.list_operators()
@@ -43,25 +44,25 @@ def find_scene_zip(scene):
     zip_path = Path(f'./input/{scene}.zip')
 
     if not zip_path.is_file():
-        print('No zip file found for this scene')  # MAKE INTO LOGS
-        print('exiting process')
+        logging.info('No zip file found for this scene')  # MAKE INTO LOGS
+        logging.info('exiting process')
         exit()
     else: 
-        print(f'zip file present for scene {scene}')
-        print('proceeding...')
+        logging.info(f'zip file present for scene {scene}')
         return
 
 
 def unzip_scene_file(scene, manifest_path):
         # unzipping the file into the temp dir if no manifest safe is present yet
-    print('not manifest file found in temp directory')
-    print(f'unzipping {scene}.zip into temp directory')
+    logging.info('not manifest file found in temp directory')
+    logging.info(f'unzipping {scene}.zip into temp directory')
 
     # MAKE INTO FUNCTION
     with zipfile.ZipFile(f'./input/{scene}.zip', 'r') as zip_ref:
         zip_ref.extractall('./temp/')
 
-    print(manifest_path.is_file())
+    logging.info(manifest_path.is_file())
+    return
 
 
 def find_manifest_file(scene):
@@ -73,17 +74,15 @@ def find_manifest_file(scene):
         unzip_scene_file(scene, manifest_path)
 
         if manifest_path.is_file():
-            print(f'{scene}.zip unzipped into temp directory')
-            print(f'manifest safe file present: {manifest_path.is_file()}')
-            print('proceeding...')
+            logging.info(f'{scene}.zip unzipped into temp directory')
+            logging.info(f'manifest safe file present: {manifest_path.is_file()}')
             return
         else:
-            print(f'manifest.safe file could not be found in the unzipped: {scene}.zip file')
-            print('exiting process')
+            logging.info(f'manifest.safe file could not be found in the unzipped: {scene}.zip file')
+            logging.info('exiting process')
             exit()
     else:
-        print('manifest file already present in temp directory')
-        print('proceeding...')
+        logging.info('manifest file already present in temp directory')
         return
 
 
@@ -110,19 +109,19 @@ def set_operator_params(current_operator):
         if current_operator in operators:
             # create instance for that operator
             op_name = current_operator.capitalize().replace('-', '_')  # 'Apply-Orbit-File' => apply_orbit_file
-            print(str(current_operator))
+            logging.info(str(current_operator))
             op_object = Operator(str(current_operator))  # creating the instance of the operator
 
-            print(f'setting params for: {current_operator}')
+            logging.info(f'setting params for: {current_operator}')
             for param in operators[current_operator]:
                 if param != 'suffix':
-                    print(f'setting the {param} paramater for {current_operator} to: {operators[current_operator][param]}')
+                    logging.info(f'setting the {param} paramater for {current_operator} to: {operators[current_operator][param]}')
                     setattr(op_object, param, operators[current_operator][param])  # setting the paramater for the operator
 
             return op_name, op_object  # returns the name of the operator and the object itself
         else:
-            print('operator not found in json file')
-            print('exiting process')
+            logging.info('operator not found in json file')
+            logging.info('exiting process')
             exit()
 
 
@@ -165,35 +164,35 @@ def prepare_ard(scene):
 
     # checks if a zip file is present in the setup input dir for the scene 
     find_scene_zip(scene)
-    print('zip file exists')
+    logging.info('zip file exists, proceeding to find manifest.safe file')
 
     # checks the manifest file is avaliable and makes so if possible
     find_manifest_file(scene)
-    print('manifest file exists')
+    logging.info('manifest file exists, proceeding to set input and output file names')
 
     # sets name of output file
     output_name = output_file_name(scene)
     output_scene = f'./output/{output_name}'
-    print(f'output file name set to: {output_name}')
+    logging.info(f'output file name set to: {output_name}')
 
     # defining the input file
     input_scene = f'./temp/{scene}.SAFE/manifest.safe'  # location of where the manifest.safe file is confirmed to be
-    print(f'input file set to: {input_scene}')
+    logging.info(f'input file set to: {input_scene}')
 
     # updating the json file with the input file name output name
     update_json(input_scene, output_scene)
-    print('proceeding to processing graph')
+    logging.info('proceeding to processing graph')
 
     # TO DO: define all the operators and params in a seperate file
     # OR can the below be setup purely with loops and using the json input?
-    print('creating processing graph')
+    logging.info('creating processing graph')
     g = create_graph()
-    print('processing graph created')
+    logging.info('processing graph created')
 
-    print('running processing graph')
+    logging.info('running processing graph')
     g.run()
-    print('processing graph ran')
-    print('Your output file is in your set output directory')
+    logging.info('processing graph ran')
+    logging.info('Your output file is in your set output directory')
 
 
 # --- function called on main

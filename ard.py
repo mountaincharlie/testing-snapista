@@ -8,155 +8,45 @@ TO DO:
 -[DONE] try to run it 
 -[DONE] compare output to snap [compared in SNAP and have identical pixel values]
 -[DONE] make all into functions
--try to setup reading from json set as an argument for the main function
--try to read input from zip file? (will still require checking the manifest.safe exists)
 -[DONE] rerun to compare to snap
+-[DONE] add logging
+-[DONE] try to setup reading from json set as an argument for the main function
+-[DONE] move functions into utils dir
+-[DONE] to set the operators from json, can you loop through the operators given parameters in the json and set them like that?
+-retest with the functions in helper file
+-finish creating the json file for catapults ard process (with snap dem)
+-workout handling using an external dem 
+-create dockerfile - with snap and snapista, rememebr to deactivate conda base env before testing
 -use try/execpts
--add logging
--move functions into utils dir
+-try to read input from zip file? (will still require checking the manifest.safe exists)
 -try adding option to clear temp dir
 -create a seperate file with all the snapista operators in default mode?
 -try with user input/diff parameters (via json object?)
--[DONE] to set the operators from json, can you loop through the operators given parameters in the json and set them like that?
--create dockerfile - with snap and snapista, rememebr to deactivate conda base env before testing
 -make into a RESTful API in Django [setup python environment first]
 -define a json of default values for each operator?
 -add basic validation checks (if zip provided, if parameters have valid values - else use defaults)
 -design basic react frontend for users to choose parameters (where to load/save the input/output?)
--adapt for open access hub download
+-adapt for open access hub download [add function and option in main function call to download from open access hub if not present]
 -read the SNAP descriptions of what each operator does (and document)
 '''
 
-from snapista import Operator, OperatorParams
-from snapista import Graph
-from pathlib import Path
-import zipfile
-import json
+# from snapista import Operator, OperatorParams
+# from snapista import Graph
+# from pathlib import Path
+# import zipfile
+# import json
 import logging
+from utils.helpers import *
 
 # from snapista import TargetBand, TargetBandDescriptors
 # Graph.list_operators()
-# Graph.describe_operators() 
+# Graph.describe_operators()
+
+# Set up the logger
+logger = setup_logger()
 
 
-def find_scene_zip(scene):
-    # checking if there is a zip file present
-    zip_path = Path(f'./input/{scene}.zip')
-
-    if not zip_path.is_file():
-        logging.info('No zip file found for this scene')  # MAKE INTO LOGS
-        logging.info('exiting process')
-        exit()
-    else: 
-        logging.info(f'zip file present for scene {scene}')
-        return
-
-
-def unzip_scene_file(scene, manifest_path):
-        # unzipping the file into the temp dir if no manifest safe is present yet
-    logging.info('not manifest file found in temp directory')
-    logging.info(f'unzipping {scene}.zip into temp directory')
-
-    # MAKE INTO FUNCTION
-    with zipfile.ZipFile(f'./input/{scene}.zip', 'r') as zip_ref:
-        zip_ref.extractall('./temp/')
-
-    logging.info(manifest_path.is_file())
-    return
-
-
-def find_manifest_file(scene):
-    # checks if there is already access to the manifest.safe file => else need to unzip file
-    manifest_path = Path(f'./temp/{scene}.SAFE/manifest.safe')
-
-    if not manifest_path.is_file():
-        # unzipping the scene file
-        unzip_scene_file(scene, manifest_path)
-
-        if manifest_path.is_file():
-            logging.info(f'{scene}.zip unzipped into temp directory')
-            logging.info(f'manifest safe file present: {manifest_path.is_file()}')
-            return
-        else:
-            logging.info(f'manifest.safe file could not be found in the unzipped: {scene}.zip file')
-            logging.info('exiting process')
-            exit()
-    else:
-        logging.info('manifest file already present in temp directory')
-        return
-
-
-def output_file_name(scene):
-
-    with open('./utils/ard.json', 'r') as f:
-        operators = json.load(f)
-        suffix = ''
-
-        for operator in operators:
-            if 'suffix' in operators[operator]:
-                suffix += f"_{operators[operator]['suffix']}"
-        
-        output_name = f'{scene}{suffix}.dim'
-    return output_name
-
-
-def set_operator_params(current_operator):
-    with open('./utils/ard.json', 'r') as f:
-        operators = json.load(f)
-
-        # FILE AND OUPUT FILE PARAMS NEED TO BE SET PROPERLY (updated in the json at some point?)
-
-        if current_operator in operators:
-            # create instance for that operator
-            op_name = current_operator.capitalize().replace('-', '_')  # 'Apply-Orbit-File' => apply_orbit_file
-            logging.info(str(current_operator))
-            op_object = Operator(str(current_operator))  # creating the instance of the operator
-
-            logging.info(f'setting params for: {current_operator}')
-            for param in operators[current_operator]:
-                if param != 'suffix':
-                    logging.info(f'setting the {param} paramater for {current_operator} to: {operators[current_operator][param]}')
-                    setattr(op_object, param, operators[current_operator][param])  # setting the paramater for the operator
-
-            return op_name, op_object  # returns the name of the operator and the object itself
-        else:
-            logging.info('operator not found in json file')
-            logging.info('exiting process')
-            exit()
-
-
-def create_graph():
-
-    g = Graph()
-
-    with open('./utils/ard.json', 'r') as f:
-        operators = json.load(f)
-        source = None
-
-        for operator in operators:
-            op_name, op_object = set_operator_params(operator)
-            g.add_node(operator=op_object, 
-                       node_id=op_name, 
-                       source=source)
-            source = op_name
-    
-    return g
-
-
-def update_json(input_scene, output_scene):
-    with open('./utils/ard.json', 'r') as f:
-        operators = json.load(f)
-
-    operators['Read']['file'] = input_scene
-    operators['Write']['file'] = output_scene
-    
-    with open('./utils/ard.json', 'w') as f:
-        json.dump(operators, f, indent=4)
-
-    return
-
-
-def prepare_ard(scene):
+def prepare_ard(scene, ard_json_path):
 
     scene = 'S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA'
     # params =  # json file of parameters
@@ -164,35 +54,35 @@ def prepare_ard(scene):
 
     # checks if a zip file is present in the setup input dir for the scene 
     find_scene_zip(scene)
-    logging.info('zip file exists, proceeding to find manifest.safe file')
+    logger.info('zip file exists, proceeding to find manifest.safe file')
 
     # checks the manifest file is avaliable and makes so if possible
     find_manifest_file(scene)
-    logging.info('manifest file exists, proceeding to set input and output file names')
+    logger.info('manifest file exists, proceeding to set input and output file names')
 
     # sets name of output file
-    output_name = output_file_name(scene)
+    output_name = output_file_name(scene, ard_json_path)
     output_scene = f'./output/{output_name}'
-    logging.info(f'output file name set to: {output_name}')
+    logger.info(f'output file name set to: {output_name}')
 
     # defining the input file
     input_scene = f'./temp/{scene}.SAFE/manifest.safe'  # location of where the manifest.safe file is confirmed to be
-    logging.info(f'input file set to: {input_scene}')
+    logger.info(f'input file set to: {input_scene}')
 
     # updating the json file with the input file name output name
-    update_json(input_scene, output_scene)
-    logging.info('proceeding to processing graph')
+    update_json(input_scene, output_scene, ard_json_path)
+    logger.info('proceeding to processing graph')
 
     # TO DO: define all the operators and params in a seperate file
     # OR can the below be setup purely with loops and using the json input?
-    logging.info('creating processing graph')
-    g = create_graph()
-    logging.info('processing graph created')
+    logger.info('creating processing graph')
+    g = create_graph(ard_json_path)
+    logger.info('processing graph created')
 
-    logging.info('running processing graph')
+    logger.info('running processing graph')
     g.run()
-    logging.info('processing graph ran')
-    logging.info('Your output file is in your set output directory')
+    logger.info('processing graph ran')
+    logger.info('Your output file is in your set output directory')
 
 
 # --- function called on main
@@ -205,7 +95,7 @@ first input must be the manifest.SAFE file, then dims
 '''
 
 if __name__ == '__main__':
-    prepare_ard('S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA')  # should take json file as argument?
+    prepare_ard('S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA', './preprocessing_jsons/Orb_Cal_ard.json')  # take a json file name as an argument (e.g. Orb_Cal_ard.json, Orb_Cal_TC_ard.json etc)
 
     # name of scene to process
     # json of operators and parameters (to be taken from user input in future)

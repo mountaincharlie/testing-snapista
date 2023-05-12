@@ -13,8 +13,8 @@ TO DO:
 -[DONE] try to setup reading from json set as an argument for the main function
 -[DONE] move functions into utils dir
 -[DONE] to set the operators from json, can you loop through the operators given parameters in the json and set them like that?
--retest with the functions in helper file
--finish creating the json file for catapults ard process (with snap dem)
+-[DONE] retest with the functions in helper file
+-finish creating the json file for catapults ard process (with snap dem) and others from the table
 -workout handling using an external dem 
 -create dockerfile - with snap and snapista, rememebr to deactivate conda base env before testing
 -use try/execpts
@@ -30,23 +30,15 @@ TO DO:
 -read the SNAP descriptions of what each operator does (and document)
 '''
 
-# from snapista import Operator, OperatorParams
-# from snapista import Graph
-# from pathlib import Path
-# import zipfile
-# import json
-import logging
-from utils.helpers import *
 
-# from snapista import TargetBand, TargetBandDescriptors
-# Graph.list_operators()
-# Graph.describe_operators()
+from utils.helpers import *
+from datetime import datetime
 
 # Set up the logger
 logger = setup_logger()
 
 
-def prepare_ard(scene, ard_json_path):
+def prepare_ard(scene, ard_json_path, out_dir):
 
     scene = 'S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA'
     # params =  # json file of parameters
@@ -62,7 +54,7 @@ def prepare_ard(scene, ard_json_path):
 
     # sets name of output file
     output_name = output_file_name(scene, ard_json_path)
-    output_scene = f'./output/{output_name}'
+    output_scene = f'{out_dir}{output_name}'
     logger.info(f'output file name set to: {output_name}')
 
     # defining the input file
@@ -80,9 +72,20 @@ def prepare_ard(scene, ard_json_path):
     logger.info('processing graph created')
 
     logger.info('running processing graph')
+    process_start_time = datetime.now().strftime("%H:%M:%S")  
+    logger.info(f'graph processing starting at: {process_start_time}')
     g.run()
     logger.info('processing graph ran')
     logger.info('Your output file is in your set output directory')
+    process_finish_time = datetime.now().strftime("%H:%M:%S")  
+    logger.info(f'graph processing finished at: {process_finish_time}')
+
+
+def view_xml_graph_from_json(ard_json_path):
+
+    g = create_graph(ard_json_path)
+
+    return g.view()
 
 
 # --- function called on main
@@ -95,7 +98,8 @@ first input must be the manifest.SAFE file, then dims
 '''
 
 if __name__ == '__main__':
-    prepare_ard('S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA', './preprocessing_jsons/Orb_Cal_ard.json')  # take a json file name as an argument (e.g. Orb_Cal_ard.json, Orb_Cal_TC_ard.json etc)
+    # view_xml_graph_from_json('./preprocessing_jsons/catapults_ard_snap_dem.json')
+    prepare_ard('S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA', './preprocessing_jsons/catapults_ard_snap_dem.json', './output/')  # take a json file name as an argument (e.g. Orb_Cal_ard.json, Orb_Cal_TC_ard.json etc)
 
     # name of scene to process
     # json of operators and parameters (to be taken from user input in future)

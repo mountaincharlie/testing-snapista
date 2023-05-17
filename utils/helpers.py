@@ -4,19 +4,25 @@ from pathlib import Path
 import zipfile
 import json
 import logging
+import os
 
 
 def setup_logger():
-
+    # setting up the logger to DEBUG level
     logging.basicConfig(level=logging.DEBUG)
     logger = logging.getLogger()
     logger.setLevel("DEBUG")
+    
+    # reducing the messages recieved from rasterio
+    logging.getLogger("rasterio").setLevel("INFO")
+    logging.getLogger("rasterio._io").setLevel("INFO")
 
     return logger
 
 
 def find_scene_zip(scene, input_dir):
-    # checking if there is a zip file present
+    # checking if there is a zip file present for the scene
+
     zip_path = Path(f'{input_dir}{scene}.zip')
 
     if not zip_path.is_file():
@@ -29,11 +35,12 @@ def find_scene_zip(scene, input_dir):
 
 
 def unzip_scene_file(scene, manifest_path, input_dir, temp_dir):
-        # unzipping the file into the temp dir if no manifest safe is present yet
+    # unzipping the file into the temp dir if no manifest safe is present yet
+
     logging.info('not manifest file found in temp directory')
     logging.info(f'unzipping {scene}.zip into temp directory')
 
-    # MAKE INTO FUNCTION
+    # TO DO: maek into function?
     with zipfile.ZipFile(f'{input_dir}{scene}.zip', 'r') as zip_ref:
         zip_ref.extractall(f'{temp_dir}')
 
@@ -43,6 +50,7 @@ def unzip_scene_file(scene, manifest_path, input_dir, temp_dir):
 
 def find_manifest_file(scene, input_dir, temp_dir):
     # checks if there is already access to the manifest.safe file => else need to unzip file
+
     manifest_path = Path(f'{temp_dir}{scene}.SAFE/manifest.safe')
 
     if not manifest_path.is_file():
@@ -63,8 +71,8 @@ def find_manifest_file(scene, input_dir, temp_dir):
 
 
 def output_file_name(scene, ard_json_path):
+    # creating the output file name based on the operator suffixes from the json file
 
-    # with open('./utils/ard.json', 'r') as f:
     with open(ard_json_path, 'r') as f:
         operators = json.load(f)
         suffix = ''
@@ -78,22 +86,23 @@ def output_file_name(scene, ard_json_path):
 
 
 def set_operator_params(current_operator, ard_json_path):
+    # setting the parameters for an operator from the provided json file
+
     with open(ard_json_path, 'r') as f:
         operators = json.load(f)
 
-        # FILE AND OUPUT FILE PARAMS NEED TO BE SET PROPERLY (updated in the json at some point?)
-
+        # create instance for that operator if its in the json file
         if current_operator in operators:
-            # create instance for that operator
-            op_name = current_operator.capitalize().replace('-', '_')  # 'Apply-Orbit-File' => apply_orbit_file
-            logging.info(str(current_operator))
-            op_object = Operator(str(current_operator))  # creating the instance of the operator
+            # converting names e.g. 'Apply-Orbit-File' => apply_orbit_file
+            op_name = current_operator.capitalize().replace('-', '_')
+            op_object = Operator(str(current_operator))
 
             logging.info(f'setting params for: {current_operator}')
             for param in operators[current_operator]:
                 if param != 'suffix':
                     # logging.info(f'setting the {param} paramater for {current_operator} to: {operators[current_operator][param]}')
-                    setattr(op_object, param, operators[current_operator][param])  # setting the paramater for the operator
+                    # setting the paramater for the operator
+                    setattr(op_object, param, operators[current_operator][param])  
 
             return op_name, op_object  # returns the name of the operator and the object itself
         else:
@@ -103,8 +112,13 @@ def set_operator_params(current_operator, ard_json_path):
 
 
 def create_graph(ard_json_path):
+    # creates the graph based on the operators and parameters defined in provided json file
 
     g = Graph()
+
+    # set path to your local version of SNAP (v9) or defaults to conda version installed with Snapista (v8)
+    g.gpt_path = os.getenv('SNAP_GPT', '/home/spatialdaysubuntu/anaconda3/envs/snapista_env/snap/bin/gpt')
+    logging.info(f'path to snap gpt being used: {g.gpt_path} - {type(g.gpt_path)}')
 
     with open(ard_json_path, 'r') as f:
         operators = json.load(f)
@@ -121,6 +135,8 @@ def create_graph(ard_json_path):
 
 
 def update_json(input_scene, output_scene, ard_json_path):
+    # updates the json file with the input and output file names
+
     with open(ard_json_path, 'r') as f:
         operators = json.load(f)
 

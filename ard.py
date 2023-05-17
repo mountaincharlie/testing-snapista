@@ -20,12 +20,12 @@ TO DO:
 -why does the uk scene not process correctly?
 -fix the gdal method for converting the final prduct to COG
 -finish creating the json file for catapults ard process (with snap dem) and others from the table
+-try adding option to clear temp dir
 
 -create dockerfile - with snap and snapista, rememebr to deactivate conda base env before testing
 -try to make a fiji AM scene work with reprojections (output quality will need to be assessed)
 -use try/execpts
 -try to read input from zip file? (will still require checking the manifest.safe exists)
--try adding option to clear temp dir
 -create a seperate file with all the snapista operators in default mode?
 -try with user input/diff parameters (via json object?)
 -make into a RESTful API in Django [setup python environment first]
@@ -80,6 +80,7 @@ def prepare_ard(scene, ard_json_path, input_dir='./input/', static_dir='./static
     logger.info('running processing graph')
     process_start_time = datetime.now().strftime("%H:%M:%S")  
     logger.info(f'graph processing starting at: {process_start_time}')
+    logging.info(f'path to snap being used: {g.gpt_path} - {type(g.gpt_path)}')
     g.run()
     logger.info('processing graph ran')
     logger.info('Your output file is in your set output directory')
@@ -108,10 +109,11 @@ first input must be the manifest.SAFE file, then dims
 
 if __name__ == '__main__':
     # view_xml_graph_from_json('./preprocessing_jsons/catapults_ard_snap_dem.json')
-    prepare_ard('S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA', './preprocessing_jsons/test_ard.json', './input/', './static/', './temp/', './output/')  # take a json file name as an argument (e.g. Orb_Cal_ard.json, Orb_Cal_TC_ard.json etc)
+    prepare_ard('S1A_IW_GRDH_1SDV_20180104T062254_20180104T062319_020001_02211F_A294', './preprocessing_jsons/catapults_ard_snap_dem.json', './input/', './static/', './temp/', './output/')  # take a json file name as an argument (e.g. Orb_Cal_ard.json, Orb_Cal_TC_ard.json etc)
 
     # S1A_IW_GRDH_1SDV_20180104T062254_20180104T062319_020001_02211F_A294  - UK scene (mostly land)
     # S1A_IW_GRDH_1SDV_20230416T180636_20230416T180701_048125_05C928_0F6E  - UK scene (land/sea)
     # S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA  - Fiji scene
+    # S1A_IW_GRDH_1SDV_20150508T072136_20150508T072201_005826_0077EE_7582  - Solomon scene
 
 

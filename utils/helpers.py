@@ -5,6 +5,8 @@ import zipfile
 import json
 import logging
 import os
+import glob
+import imghdr
 
 
 def setup_logger():
@@ -73,6 +75,8 @@ def find_manifest_file(scene, input_dir, temp_dir):
 def output_file_name(scene, ard_json_path):
     # creating the output file name based on the operator suffixes from the json file
 
+    # TO DO: if bandmaths is in the graph => need to include which bands are being used in the output name
+
     with open(ard_json_path, 'r') as f:
         operators = json.load(f)
         suffix = ''
@@ -118,7 +122,7 @@ def create_graph(ard_json_path):
 
     # set path to your local version of SNAP (v9) or defaults to conda version installed with Snapista (v8)
     g.gpt_path = os.getenv('SNAP_GPT', '/home/spatialdaysubuntu/anaconda3/envs/snapista_env/snap/bin/gpt')
-    logging.info(f'path to snap gpt being used: {g.gpt_path} - {type(g.gpt_path)}')
+    logging.info(f'path to snap gpt being used: {g.gpt_path}')
 
     with open(ard_json_path, 'r') as f:
         operators = json.load(f)
@@ -134,7 +138,7 @@ def create_graph(ard_json_path):
     return g
 
 
-def update_json(input_scene, output_scene, ard_json_path):
+def update_json_filenames(input_scene, output_scene, ard_json_path):
     # updates the json file with the input and output file names
 
     with open(ard_json_path, 'r') as f:
@@ -143,6 +147,41 @@ def update_json(input_scene, output_scene, ard_json_path):
     operators['Read']['file'] = input_scene
     operators['Write']['file'] = output_scene
     
+    with open(ard_json_path, 'w') as f:
+        json.dump(operators, f, indent=4)
+
+    return
+
+
+def find_external_dem(ext_dem, static_dir):
+    # checks if the external dem is present in the static directory
+
+    ext_dem_path = f'{static_dir}{ext_dem}.tif'
+
+    if Path(ext_dem_path).is_file():
+        logging.info(f'external dem found: {ext_dem_path}')
+        return ext_dem_path
+    else:
+        logging.info(f'external dem not found: {ext_dem_path}')
+        logging.info('exiting process')
+        exit()
+
+
+def update_json_ext_dem(ext_dem_path, ard_json_path):
+    # checks if the TF and TC operators are present and correctly configures the parameters for using external dems
+
+    ops_to_update = ['Terrain-Flattening', 'Terrain-Correction']
+
+    with open(ard_json_path, 'r') as f:
+        operators = json.load(f)
+    
+    for op in ops_to_update:
+        if op in operators:
+            operators[op]['demName'] = 'External DEM'
+            operators[op]['externalDEMFile'] = ext_dem_path
+            operators[op]['externalDEMNoDataValue'] = "-9999.0"
+            operators[op]['externalDEMApplyEGM'] = True
+            
     with open(ard_json_path, 'w') as f:
         json.dump(operators, f, indent=4)
 

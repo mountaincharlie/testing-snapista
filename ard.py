@@ -44,7 +44,7 @@ from datetime import datetime
 logger = setup_logger()
 
 
-def prepare_ard(scene, ard_json_path, input_dir='./input/', static_dir='./static/', temp_dir='./temp/', output_dir='./output/'):
+def prepare_ard(scene, ard_json_path, ext_dem=None, input_dir='./input/', static_dir='./static/', temp_dir='./temp/', output_dir='./output/'):
 
     logger.info(f'processing scene: {scene}')
     logger.info(f'processing with json: {ard_json_path.split("/")[-1]}')
@@ -56,7 +56,18 @@ def prepare_ard(scene, ard_json_path, input_dir='./input/', static_dir='./static
 
     # checks the manifest file is avaliable and makes so if possible
     find_manifest_file(scene, input_dir, temp_dir)
-    logger.info('manifest file exists, proceeding to set input and output file names')
+    logger.info('manifest file exists, proceeding to check if external dem provided')
+
+    # checks if an external dem has been provided
+    if ext_dem is not None:
+        ext_dem = ext_dem.split('.')[0] # remove file extension if provided (added later, avoids user error)
+        ext_dem_path = find_external_dem(ext_dem, static_dir)
+        logger.info('external dem found, proceeding to check external dems are correctly configured in the json file')
+        update_json_ext_dem(ext_dem_path, ard_json_path)
+        logger.info('json file correctly configured for external dem, proceeding to set input and output file names')
+    else:
+        # TO DO: need to make sure that the external dem parameter is null for TF and TC AND if demName != "SRTM 1Sec HGT" or "SRTM 3Sec" then it needs to be set to null
+        logger.info('no external dem provided, proceeding to set input and output file names')
 
     # sets name of output file
     output_name = output_file_name(scene, ard_json_path)
@@ -68,7 +79,7 @@ def prepare_ard(scene, ard_json_path, input_dir='./input/', static_dir='./static
     logger.info(f'input file set to: {input_scene}')
 
     # updating the json file with the input file name output name
-    update_json(input_scene, output_scene, ard_json_path)
+    update_json_filenames(input_scene, output_scene, ard_json_path)
     logger.info('proceeding to processing graph')
 
     # TO DO: define all the operators and params in a seperate file
@@ -80,7 +91,6 @@ def prepare_ard(scene, ard_json_path, input_dir='./input/', static_dir='./static
     logger.info('running processing graph')
     process_start_time = datetime.now().strftime("%H:%M:%S")  
     logger.info(f'graph processing starting at: {process_start_time}')
-    logging.info(f'path to snap being used: {g.gpt_path} - {type(g.gpt_path)}')
     g.run()
     logger.info('processing graph ran')
     logger.info('Your output file is in your set output directory')
@@ -109,7 +119,7 @@ first input must be the manifest.SAFE file, then dims
 
 if __name__ == '__main__':
     # view_xml_graph_from_json('./preprocessing_jsons/catapults_ard_snap_dem.json')
-    prepare_ard('S1A_IW_GRDH_1SDV_20180104T062254_20180104T062319_020001_02211F_A294', './preprocessing_jsons/catapults_ard_snap_dem.json', './input/', './static/', './temp/', './output/')  # take a json file name as an argument (e.g. Orb_Cal_ard.json, Orb_Cal_TC_ard.json etc)
+    prepare_ard('S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA', './preprocessing_jsons/catapults_ard_snap_dem.json', ext_dem='SRTM30_Fiji_E', input_dir='./input/', static_dir='./static/', temp_dir='./temp/', output_dir='./output/')
 
     # S1A_IW_GRDH_1SDV_20180104T062254_20180104T062319_020001_02211F_A294  - UK scene (mostly land)
     # S1A_IW_GRDH_1SDV_20230416T180636_20230416T180701_048125_05C928_0F6E  - UK scene (land/sea)

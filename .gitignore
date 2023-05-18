@@ -1,6 +1,10 @@
 input
 output
 temp
+static
+preprocessing_jsons
 *env*
 *notes.txt
 guide_xml_files
+record_of_each_different_process.txt
+*pyc*

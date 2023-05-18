@@ -15,6 +15,65 @@
         "writeEntireTileRows": "false",
         "clearCacheAfterRowWrite": "false"
     },
+    "Subset": {
+        "bandNames": null,
+        "region": null,
+        "referenceBand": null,
+        "geoRegion": null,
+        "subSamplingX": "1",
+        "subSamplingY": "1",
+        "fullSwath": "false",
+        "tiePointGridNames": null,
+        "copyMetadata": "false",
+        "suffix": "Sub"
+    },
+    "Remove-GRD-Border-Noise": {
+        "selectedPolarisations": null,
+        "borderLimit": "500",
+        "trimThreshold": "0.5",
+        "suffix": "BNR"
+    },
+    "ThermalNoiseRemoval": {
+        "selectedPolarisations": null,
+        "removeThermalNoise": "true",
+        "reIntroduceThermalNoise": "false",
+        "suffix": "TNR"
+    },
+    "Apply-Orbit-File": {
+        "orbitType": "Sentinel Precise (Auto Download)",
+        "polyDegree": "3",
+        "continueOnFail": "false",
+        "suffix": "Orb"
+    },
+    "Calibration": {
+        "sourceBandNames": null,
+        "auxFile": "Latest Auxiliary File",
+        "externalAuxFile": null,
+        "outputImageInComplex": "false",
+        "outputImageScaleInDb": "false",
+        "createGammaBand": "false",
+        "createBetaBand": "false",
+        "selectedPolarisations": null,
+        "outputSigmaBand": "true",
+        "outputGammaBand": "false",
+        "outputBetaBand": "false",
+        "suffix": "Cal"
+    },
+    "Speckle-Filter": {
+        "sourceBandNames": null,
+        "filter": "Lee Sigma",
+        "filterSizeX": "3",
+        "filterSizeY": "3",
+        "dampingFactor": "2",
+        "estimateENL": "false",
+        "enl": "1.0",
+        "numLooksStr": "1",
+        "windowSize": "7x7",
+        "targetWindowSizeStr": "3x3",
+        "sigmaStr": "0.9",
+        "anSize": "50",
+        "suffix": "Spkl"
+    },
     "Multilook": {
         "sourceBandNames": null,
         "nRgLooks": "1",
@@ -22,6 +81,19 @@
         "outputIntensity": "false",
         "grSquarePixel": "true",
         "suffix": "ML"
+    },
+    "Terrain-Flattening": {
+        "sourceBandNames": null,
+        "demName": "SRTM 1Sec HGT",
+        "demResamplingMethod": "BILINEAR_INTERPOLATION",
+        "externalDEMFile": null,
+        "externalDEMNoDataValue": "0",
+        "externalDEMApplyEGM": "false",
+        "outputSimulatedImage": "false",
+        "outputSigma0": "false",
+        "additionalOverlap": "0.1",
+        "oversamplingMultiple": "1.0",
+        "suffix": "TF"
     },
     "Terrain-Correction": {
         "sourceBandNames": null,
@@ -59,78 +131,6 @@
         "sourceBandNames": null,
         "suffix": "dB"
     },
-    "Apply-Orbit-File": {
-        "orbitType": "Sentinel Precise (Auto Download)",
-        "polyDegree": "3",
-        "continueOnFail": "false",
-        "suffix": "Orb"
-    },
-    "Calibration": {
-        "sourceBandNames": null,
-        "auxFile": "Latest Auxiliary File",
-        "externalAuxFile": null,
-        "outputImageInComplex": "false",
-        "outputImageScaleInDb": "false",
-        "createGammaBand": "false",
-        "createBetaBand": "false",
-        "selectedPolarisations": null,
-        "outputSigmaBand": "true",
-        "outputGammaBand": "false",
-        "outputBetaBand": "false",
-        "suffix": "Cal"
-    },
-    "Speckle-Filter": {
-        "sourceBandNames": null,
-        "filter": "Lee Sigma",
-        "filterSizeX": "3",
-        "filterSizeY": "3",
-        "dampingFactor": "2",
-        "estimateENL": "false",
-        "enl": "1.0",
-        "numLooksStr": "1",
-        "windowSize": "7x7",
-        "targetWindowSizeStr": "3x3",
-        "sigmaStr": "0.9",
-        "anSize": "50",
-        "suffix": "Spkl"
-    },
-    "Subset": {
-        "bandNames": null,
-        "region": null,
-        "referenceBand": null,
-        "geoRegion": null,
-        "subSamplingX": "1",
-        "subSamplingY": "1",
-        "fullSwath": "false",
-        "tiePointGridNames": null,
-        "copyMetadata": "false",
-        "suffix": "Sub"
-    },
-    "Terrain-Flattening": {
-        "sourceBandNames": null,
-        "demName": "SRTM 1Sec HGT",
-        "demResamplingMethod": "BILINEAR_INTERPOLATION",
-        "externalDEMFile": null,
-        "externalDEMNoDataValue": "0",
-        "externalDEMApplyEGM": "false",
-        "outputSimulatedImage": "false",
-        "outputSigma0": "false",
-        "additionalOverlap": "0.1",
-        "oversamplingMultiple": "1.0",
-        "suffix": "TF"
-    },
-    "ThermalNoiseRemoval": {
-        "selectedPolarisations": null,
-        "removeThermalNoise": "true",
-        "reIntroduceThermalNoise": "false",
-        "suffix": "TNR"
-    },
-    "Remove-GRD-Border-Noise": {
-        "selectedPolarisations": null,
-        "borderLimit": "500",
-        "trimThreshold": "0.5",
-        "suffix": "BNR"
-    },
     "TOPSAR-Deburst": {
         "selectedPolarisations": null,
         "suffix": "DB"
@@ -142,5 +142,10 @@
         "lastBurstIndex": "9999",
         "wktAoi": null,
         "suffix": "Split"
+    },
+    "BandMaths": {
+        "targetBandDescriptors": null,
+        "variables": null,
+        "suffix": "BM"
     }
 }

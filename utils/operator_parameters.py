@@ -36,9 +36,9 @@ def dict_to_json(my_dict):
     return my_json
 
 
-def create_graph():
+# def create_graph():
 
-    return g
+#     return g
 
 
 if __name__ == '__main__':
@@ -48,26 +48,27 @@ if __name__ == '__main__':
     # TO DO: just have the dictionary with the operators and suffixes instead of the list and add the suffixes when adding the other params
     # TO DO: move these functions into the helpers file?
 
-    # test_op = Operator('LinearToFromdB')
+    # test_op = Operator('BandMaths')
     # test_op.describe()
     # exit()
 
-    used_operators = ['Read', 'Write', 'Multilook', 'Terrain-Correction', 'LinearToFromdB', 'Apply-Orbit-File', 'Calibration', 'Speckle-Filter', 'Subset', 'Terrain-Flattening', 'ThermalNoiseRemoval', 'Remove-GRD-Border-Noise', 'TOPSAR-Deburst', 'TOPSAR-Split']
+    used_operators = ['Read', 'Write', 'Subset', 'Remove-GRD-Border-Noise', 'ThermalNoiseRemoval', 'Apply-Orbit-File', 'Calibration', 'Speckle-Filter', 'Multilook', 'Terrain-Flattening', 'Terrain-Correction', 'LinearToFromdB', 'TOPSAR-Deburst', 'TOPSAR-Split', 'BandMaths']
     operator_suffixes = {
         'Read': '',
         'Write': '',
-        'Multilook': 'ML',
-        'Terrain-Correction': 'TC',
-        'LinearToFromdB': 'dB',
+        'Subset': 'Sub',
+        'Remove-GRD-Border-Noise': 'BNR',
+        'ThermalNoiseRemoval': 'TNR',
         'Apply-Orbit-File': 'Orb',
         'Calibration': 'Cal',
         'Speckle-Filter': 'Spkl',
-        'Subset': 'Sub',
+        'Multilook': 'ML',
         'Terrain-Flattening': 'TF',
-        'Remove-GRD-Border-Noise': 'BNR',
-        'ThermalNoiseRemoval': 'TNR',
+        'Terrain-Correction': 'TC',
+        'LinearToFromdB': 'dB',
         'TOPSAR-Deburst': 'DB',
-        'TOPSAR-Split': 'Split'
+        'TOPSAR-Split': 'Split',
+        'BandMaths': 'BM'
     }
 
     # creating a dictionary of operators and their params

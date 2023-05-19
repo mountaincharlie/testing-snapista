@@ -1,5 +1,7 @@
 from snapista import Operator
 from snapista import Graph
+from snapista import TargetBand
+from snapista import TargetBandDescriptors
 from pathlib import Path
 import zipfile
 import json
@@ -85,7 +87,7 @@ def output_file_name(scene, ard_json_path):
             if 'suffix' in operators[operator]:
                 suffix += f"_{operators[operator]['suffix']}"
         
-        output_name = f'{scene}{suffix}.dim'
+        output_name = f'{scene}{suffix}'  # remove file time, it will be added automatically?
     return output_name
 
 
@@ -94,6 +96,27 @@ def set_operator_params(current_operator, ard_json_path):
 
     with open(ard_json_path, 'r') as f:
         operators = json.load(f)
+
+        # TO DO: make seperate andmaths handling function
+        if current_operator == 'BandMaths':
+            # creates BandMaths operator
+            op_object = Operator(str(current_operator))
+
+            # using list comprehension to create the band descriptors for each of the bands in the 'targetBands' 
+            band_descriptors = [
+                TargetBand(
+                    name=band,
+                    type=operators[current_operator]['targetBandDescriptors'].get('type'),
+                    expression=operators[current_operator]['targetBandDescriptors'].get('expression'),
+                    description=operators[current_operator]['targetBandDescriptors'].get('description'),
+                    unit=operators[current_operator]['targetBandDescriptors'].get('unit'),
+                    no_data_value=operators[current_operator]['targetBandDescriptors'].get('no_data_value')
+                ) for band in operators[current_operator]['targetBands'].split(',')
+            ]  
+
+            setattr(op_object, 'targetBandDescriptors', TargetBandDescriptors(band_descriptors))
+
+            return current_operator, op_object # returns the name of the operator and the object itself
 
         # create instance for that operator if its in the json file
         if current_operator in operators:
@@ -179,8 +202,8 @@ def update_json_ext_dem(ext_dem_path, ard_json_path):
         if op in operators:
             operators[op]['demName'] = 'External DEM'
             operators[op]['externalDEMFile'] = ext_dem_path
-            operators[op]['externalDEMNoDataValue'] = "-9999.0"
-            operators[op]['externalDEMApplyEGM'] = True
+            operators[op]['externalDEMNoDataValue'] = "-32768.0"
+            operators[op]['externalDEMApplyEGM'] = "true"
             
     with open(ard_json_path, 'w') as f:
         json.dump(operators, f, indent=4)

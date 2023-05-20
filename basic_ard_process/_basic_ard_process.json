@@ -1,0 +1,107 @@
+{
+    "Read": {
+        "file": "path to input file",
+        "formatName": null,
+        "bandNames": null,
+        "maskNames": null,
+        "pixelRegion": null,
+        "geometryRegion": null,
+        "copyMetadata": "true"
+    },
+    "ThermalNoiseRemoval": {
+        "selectedPolarisations": null,
+        "removeThermalNoise": "true",
+        "reIntroduceThermalNoise": "false",
+        "suffix": "TNR"
+    },
+    "Remove-GRD-Border-Noise": {
+        "selectedPolarisations": null,
+        "borderLimit": "1000",
+        "trimThreshold": "0.5",
+        "suffix": "BNR"
+    },
+    "Apply-Orbit-File": {
+        "orbitType": "Sentinel Precise (Auto Download)",
+        "polyDegree": "3",
+        "continueOnFail": "true",
+        "suffix": "Orb"
+    },
+    "Calibration": {
+        "sourceBandNames": null,
+        "auxFile": "Product Auxiliary File",
+        "externalAuxFile": null,
+        "outputImageInComplex": "false",
+        "outputImageScaleInDb": "false",
+        "createGammaBand": "false",
+        "createBetaBand": "false",
+        "selectedPolarisations": "VH,VV",
+        "outputSigmaBand": "true",
+        "outputGammaBand": "true",
+        "outputBetaBand": "true",
+        "suffix": "Cal"
+    },
+    "Multilook": {
+        "sourceBandNames": null,
+        "nRgLooks": "2",
+        "nAzLooks": "2",
+        "outputIntensity": "true",
+        "grSquarePixel": "true",
+        "suffix": "ML"
+    },
+    "Terrain-Flattening": {
+        "sourceBandNames": "Beta0_VH,Beta0_VV",
+        "demName": "External DEM",
+        "demResamplingMethod": "BILINEAR_INTERPOLATION",
+        "externalDEMFile": "./static/SRTM30_Fiji_E.tif",
+        "externalDEMNoDataValue": "-32768.0",
+        "externalDEMApplyEGM": true,
+        "outputSimulatedImage": "false",
+        "nodataValueAtSea": "false",
+        "additionalOverlap": "0.1",
+        "oversamplingMultiple": "1.5",
+        "suffix": "TF"
+    },
+    "Terrain-Correction": {
+        "sourceBandNames": "Gamma0_VH,Gamma0_VV",
+        "demName": "External DEM",
+        "externalDEMFile": "./static/SRTM30_Fiji_E.tif",
+        "externalDEMNoDataValue": "-9999.0",
+        "externalDEMApplyEGM": true,
+        "demResamplingMethod": "BILINEAR_INTERPOLATION",
+        "imgResamplingMethod": "BILINEAR_INTERPOLATION",
+        "pixelSpacingInMeter": "10",
+        "pixelSpacingInDegree": "0.00013474729261792824",
+        "mapProjection": "WGS84(DD)",
+        "alignToStandardGrid": "false",
+        "standardGridOriginX": "0",
+        "standardGridOriginY": "0",
+        "nodataValueAtSea": "false",
+        "saveDEM": "false",
+        "saveLatLon": "false",
+        "saveIncidenceAngleFromEllipsoid": "false",
+        "saveLocalIncidenceAngle": "false",
+        "saveProjectedLocalIncidenceAngle": "false",
+        "saveSelectedSourceBand": "true",
+        "saveLayoverShadowMask": "false",
+        "applyRadiometricNormalization": "false",
+        "saveSigmaNought": "false",
+        "saveGammaNought": "false",
+        "saveBetaNought": "false",
+        "incidenceAngleForSigma0": "Use projected local incidence angle from DEM",
+        "incidenceAngleForGamma0": "Use projected local incidence angle from DEM",
+        "auxFile": "Latest Auxiliary File",
+        "externalAuxFile": null,
+        "suffix": "TC"
+    },
+    "LinearToFromdB": {
+        "sourceBandNames": "Gamma0_VH,Gamma0_VV",
+        "suffix": "dB"
+    },
+    "Write": {
+        "file": "path to output file",
+        "formatName": "BEAM-DIMAP",
+        "deleteOutputOnFailure": "false",
+        "writeEntireTileRows": "false",
+        "clearCacheAfterRowWrite": "false"
+    }
+}

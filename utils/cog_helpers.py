@@ -2,6 +2,7 @@ from utils.helpers import setup_logger
 import logging
 import os
 import glob
+from utils.check_cog_geotiff import is_cog
 from osgeo import gdal
 import rasterio
 from rasterio.enums import Resampling
@@ -41,7 +42,7 @@ def cog_translate(
         nodata value for mask creation.
     alpha, int, optional
         alpha band index for mask creation.
-    overview_level : int, optional (default: 6)
+    overview_level : int, optional (default: 5)
         COGEO overview (decimation) level
     config : dict
         Rasterio Env options.
@@ -147,6 +148,7 @@ def output_to_cog(output_name, output_dir='./output/', cog_dir='./output/cogs/')
     # checks if the output directory exists - TO DO: PUT in seperate dir checking/making function
     if not os.path.exists(output_dir):
         logging.info(f'Cannot find non-cog scene directory: {output_dir}')
+        exit()
 
     # creating cog scene directory - TO DO: replace with os.makedirs(exists_ok=True)?
     if not os.path.exists(cog_dir):
@@ -160,8 +162,49 @@ def output_to_cog(output_name, output_dir='./output/', cog_dir='./output/cogs/')
     logging.info(f"ALL PROD_PATHS: {prod_paths}")
 
     # iterate over prods to create parellel processing list
+    out_filenames = []
     for prod in prod_paths:
-        logging.info(f'the prod is: {prod}')
-        out_filename = os.path.join(cog_dir, output_name + '_' + os.path.basename(prod)[:-4] + '.tif')  # - TO DO*****
-        logging.info(f"converting {prod} to cog at {out_filename}")
-        convert_to_cog(prod, out_filename, nodata=-9999)
+        try:
+            logging.info(f'the prod is: {prod}')
+            out_filename = os.path.join(cog_dir, output_name + '_' + os.path.basename(prod)[:-4] + '.tif')
+            logging.info(f"converting {prod} to cog at {out_filename}")
+            convert_to_cog(prod, out_filename, nodata=-9999)
+
+            out_filenames.append(out_filename.removeprefix(cog_dir).removesuffix('.tif'))
+        except:
+            logging.info(f'could not convert to cog: {prod}')
+            exit()
+    
+    # logging.info(f'out_filenames: {out_filenames}')
+    return out_filenames, cog_dir
+
+
+def validate_cog(cog_list, cog_dir='./output/cogs/'):
+    # validating that the tif file exists at the specified path
+    # then validating that the file is definitely in cog format
+
+    for cog_name in cog_list:
+
+        logging.info(f'Validating the cog: {cog_name}')
+        cog_path = f'{cog_dir}{cog_name}.tif'
+
+        if not os.path.exists(cog_path):
+            logging.info(f'Cannot find cog: {cog_path}')
+            exit()
+        logging.info(f'found cog: {cog_path}')
+
+        try:
+            logging.info(f'Check if {cog_name} is a valid cog')
+            is_valid, errors, warnings = is_cog(cog_path)
+            if is_valid:
+                logging.info(f'\n{cog_name} is a valid cog \n')
+            else:
+                logging.info(f'\n{cog_name} is not a valid cog \n')
+                if errors:
+                    logging.info(f'Errors: {errors}')
+                if warnings:
+                    logging.info(f'Warnings: {warnings}')
+                exit()
+        except:
+            logging.info('Failed to validate cog')
+            exit()

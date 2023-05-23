@@ -1,5 +1,5 @@
 from utils.helpers import setup_logger
-from utils.cog_helpers import output_to_cog
+from utils.cog_helpers import output_to_cog, validate_cog
 from datetime import datetime
 
 # Set up the logger
@@ -11,9 +11,14 @@ if __name__ == '__main__':
 
     logger.info(f'cog processing starting at: {datetime.now().strftime("%H:%M:%S")}')
 
-    output_to_cog('S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA', './output/', './output/cogs/')
+    output_to_cog = output_to_cog('S1A_IW_GRDH_1SDV_20170724T174037_20170724T174100_017616_01D7A7_F0DA', './output/', './output/cogs/')
+
+    cog_files = output_to_cog[0]  # list of cogs to validate
+    cog_dir = output_to_cog[1]  # directory of the cogs to be validated
+    logger.info(f'Validating the files: {cog_files}')
+    validate_cog(cog_files, cog_dir)
     
-    logger.info(f'cog processing finished at: {datetime.now().strftime("%H:%M:%S")}')
+    logger.info(f'cog processing and validation finished at: {datetime.now().strftime("%H:%M:%S")}')
 
     # S1A_IW_GRDH_1SDV_20180104T062254_20180104T062319_020001_02211F_A294  - UK scene (mostly land)
     # S1A_IW_GRDH_1SDV_20230416T180636_20230416T180701_048125_05C928_0F6E  - UK scene (land/sea)
